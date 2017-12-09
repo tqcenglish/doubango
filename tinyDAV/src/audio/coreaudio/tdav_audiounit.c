@@ -205,7 +205,8 @@ int tdav_audiounit_handle_start(tdav_audiounit_handle_t* self)
 
     tsk_safeobj_lock(inst);
     if (inst->ready.consumer && inst->ready.producer) {
-        status = (OSStatus)tdav_apple_enable_audio();
+        //tqcenglish
+        // status = (OSStatus)tdav_apple_enable_audio();
         if (status == noErr) {
             if ((!inst->started || inst->interrupted) && (status = AudioOutputUnitStart(inst->audioUnit))) {
                 TSK_DEBUG_ERROR("AudioOutputUnitStart failed with status=%ld", (signed long)status);
@@ -332,7 +333,8 @@ int tdav_audiounit_handle_interrupt(tdav_audiounit_handle_t* self, tsk_bool_t in
         }
         else {
 #if TARGET_OS_IPHONE
-            status = (OSStatus)tdav_apple_enable_audio();
+            // tqcenglish
+            // status = (OSStatus)tdav_apple_enable_audio();
             if (status != noErr) {
                 TSK_DEBUG_ERROR("AudioSessionSetActive failed with status=%ld", (signed long)status);
                 goto bail;

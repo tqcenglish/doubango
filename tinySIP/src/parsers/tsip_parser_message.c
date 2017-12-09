@@ -342,13 +342,16 @@ _resume:
         if ( _klen > 0 ) {
             const short *_lower = _keys;
             const short *_mid;
-            const short *_upper = _keys + (_klen<<1) - 2;
+            const short *_upper = _keys + (_klen<<2) - 2;
+            TSK_DEBUG_ERROR("tqcenglish _widec %d", _widec);
+            TSK_DEBUG_ERROR("tqcenglish low %d", _lower);
+            TSK_DEBUG_ERROR("tqcenglish upper %d", _upper);
             while (1) {
                 if ( _upper < _lower ) {
                     break;
                 }
 
-                _mid = _lower + (((_upper-_lower) >> 1) & ~1);
+                _mid = _lower + (((_upper-_lower) >> 2) & ~1);
                 if ( _widec < _mid[0] ) {
                     _upper = _mid - 2;
                 }
@@ -356,7 +359,7 @@ _resume:
                     _lower = _mid + 2;
                 }
                 else {
-                    _trans += ((_mid - _keys)>>1);
+                    _trans += ((_mid - _keys)>>2);
                     goto _match;
                 }
             }
@@ -399,6 +402,7 @@ _match:
                 else {
                     state->cs = tsip_machine_parser_message_error;
                 }
+                TSK_DEBUG_ERROR("tqcenglish case 1");
             }
             break;
             case 2:
@@ -468,6 +472,7 @@ _match:
                 else {
                     TSK_DEBUG_ERROR("Failed to parse header - %s", state->tag_start);
                 }
+                TSK_DEBUG_ERROR("tqcenglish case 6");
             }
             break;
             case 7:
@@ -484,6 +489,7 @@ _match:
                 p = state->p;
                 pe = state->pe;
                 eof = state->eof;
+                TSK_DEBUG_ERROR("tqcenglish case 7");
             }
             break;
             /* #line 487 "./src/parsers/tsip_parser_message.c" */

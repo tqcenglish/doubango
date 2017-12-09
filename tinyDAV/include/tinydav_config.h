@@ -43,7 +43,7 @@
 
 // OS X or iOS
 #if defined(__APPLE__)
-#	define TDAV_UNDER_APPLE				1
+#	define TDAV_UNDER_APPLE				0
 #   include <TargetConditionals.h>
 #   include <Availability.h>
 #endif
